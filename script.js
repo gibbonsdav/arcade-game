@@ -26,7 +26,7 @@ const paddle = {
   w: 80,
   h: 10,
   speed: 8,
-  dx: 0,
+  dx: 4,
 }
 
 // Create Brick Props
@@ -97,6 +97,22 @@ function draw() {
   drawBricks()
 }
 
+//move ball on canvas
+function moveBall() {
+  ball.x += ball.dx
+  ball.y += ball.dy
+
+  //wall collision (right or left)
+  if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
+    ball.dx *= -1 //same as ball.dx = ball.dx * -1
+  }
+}
+
+//wall collision (top and bottom)
+if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0) {
+  ball.dy *= -1
+}
+
 //move paddle on canvas
 function movePaddle() {
   paddle.x += paddle.dx
@@ -113,6 +129,7 @@ function movePaddle() {
 //update canvas drawing and animation
 function update() {
   movePaddle()
+  moveBall()
   //draw everything
   draw()
 
