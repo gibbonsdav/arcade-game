@@ -17,6 +17,7 @@ const ball = {
   speed: 4,
   dx: 4,
   dy: -4,
+  visible: true,
 }
 
 // Making the paddle
@@ -106,11 +107,11 @@ function moveBall() {
   if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
     ball.dx *= -1 //same as ball.dx = ball.dx * -1
   }
-}
 
-//wall collision (top and bottom)
-if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0) {
-  ball.dy *= -1
+  //wall collision (top and bottom)
+  if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0) {
+    ball.dy *= -1
+  }
 }
 
 //move paddle on canvas
