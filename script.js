@@ -147,7 +147,7 @@ function moveBall() {
           ball.y - ball.size < brick.y + brick.h
         ) {
           ball.dy *= -1
-          brick.visble = false
+          brick.visible = false
 
           increaseScore()
         }
@@ -160,7 +160,7 @@ function moveBall() {
 function increaseScore() {
   score++
 
-  if (score % (brickRowCount * brickRowCount) === 0) {
+  if (score % (brickRowCount * brickColumnCount) === 0) {
     showAllBricks()
   }
 }
