@@ -57,7 +57,7 @@ console.log(bricks)
 function drawBall() {
   ctx.beginPath()
   ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2)
-  ctx.fillStyle = "#0095dd"
+  ctx.fillStyle = ball.visible ? "#0095dd" : "transparent"
   ctx.fill()
   ctx.closePath()
 }
@@ -66,9 +66,9 @@ function drawBall() {
 function drawPaddle() {
   ctx.beginPath()
   ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h)
-  ctx.fillStyle = "#0095dd"
+  ctx.fillStyle = paddle.visible ? "#0095dd" : "transparent"
   ctx.fill()
-  ctx.closePath
+  ctx.closePath()
 }
 
 //Draw score in canvas
@@ -88,6 +88,19 @@ function drawBricks() {
       ctx.closePath()
     })
   })
+}
+
+//move paddle on canvas
+function movePaddle() {
+  paddle.x += paddle.dx
+
+  //wall detection
+  if (paddle.x + paddle.w > canvas.width) {
+    paddle.x = canvas.width - paddle.w
+  }
+  if (paddle.x < 0) {
+    paddle.x = 0
+  }
 }
 
 function draw() {
@@ -157,19 +170,6 @@ function showAllBricks() {
   bricks.forEach((column) => {
     column.forEach((brick) => (brick.visible = true))
   })
-}
-
-//move paddle on canvas
-function movePaddle() {
-  paddle.x += paddle.dx
-
-  //wall detection
-  if (paddle.x + paddle.w > canvas.width) {
-    paddle.x = canvas.width - paddle.w
-  }
-  if (paddle.x < 0) {
-    paddle.x = 0
-  }
 }
 
 //update canvas drawing and animation
