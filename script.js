@@ -27,7 +27,8 @@ const paddle = {
   w: 80,
   h: 10,
   speed: 8,
-  dx: 4,
+  dx: 0,
+  visible: true,
 }
 
 // Create Brick Props
