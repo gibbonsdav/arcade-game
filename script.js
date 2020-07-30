@@ -51,7 +51,6 @@ for (let i = 0; i < brickRowCount; i++) {
     bricks[i][j] = { x, y, ...brickInfo }
   }
 }
-console.log(bricks)
 
 // Drawing the ball
 function drawBall() {
@@ -94,7 +93,7 @@ function drawBricks() {
 function movePaddle() {
   paddle.x += paddle.dx
 
-  //wall detection
+  // Wall detection
   if (paddle.x + paddle.w > canvas.width) {
     paddle.x = canvas.width - paddle.w
   }
@@ -155,13 +154,29 @@ function moveBall() {
     })
   })
 }
+// Hit bottom wall - Lose
+if (ball.y + ball.size > canvas.height) {
+  showAllBricks()
+  score = 0
+}
 
 //increase the score
 function increaseScore() {
   score++
-
   if (score % (brickRowCount * brickColumnCount) === 0) {
-    showAllBricks()
+    ball.visible = false
+    paddle.visible = false
+    //After 0.5 sec restart the game
+    setTimeout(function () {
+      showAllBricks()
+      score = 0
+      paddle.x = canvas.width / 2 - 40
+      paddle.y = canvas.height - 20
+      ball.x = canvas.width / 2
+      ball.y = canvas.height / 2
+      ball.visible = true
+      paddle.visible = true
+    }, delay)
   }
 }
 
