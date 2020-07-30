@@ -102,15 +102,6 @@ function movePaddle() {
   }
 }
 
-function draw() {
-  //clear canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawBall()
-  drawPaddle()
-  drawScore()
-  drawBricks()
-}
-
 //move ball on canvas
 function moveBall() {
   ball.x += ball.dx
@@ -160,7 +151,13 @@ if (ball.y + ball.size > canvas.height) {
   score = 0
 }
 
-//increase the score
+// Hit bottom wall - Lose
+if (ball.y + ball.size > canvas.height) {
+  showAllBricks()
+  score = 0
+}
+
+// Increase score
 function increaseScore() {
   score++
   if (score % (brickRowCount * brickColumnCount) === 0) {
@@ -185,6 +182,15 @@ function showAllBricks() {
   bricks.forEach((column) => {
     column.forEach((brick) => (brick.visible = true))
   })
+}
+
+function draw() {
+  //clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  drawBall()
+  drawPaddle()
+  drawScore()
+  drawBricks()
 }
 
 //update canvas drawing and animation
